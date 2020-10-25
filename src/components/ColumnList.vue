@@ -6,7 +6,7 @@
         <img :src="column.avatar && column.avatar.fitUrl" :alt="column.title" class="rounded-circle border border-light my-3">
         <h5 class="card-title text-truncate">{{column.title}}</h5>
         <p class="card-text text-left description text-secondary">{{column.description}}</p>
-        <router-link :to="`/column/${column._id}`" class="btn btn-outline-primary">进入心语</router-link>
+        <router-link :to="`/column/${column._id}`" class="btn btn-outline-primary">进入码砖</router-link>
       </div>
     </div>
   </div>

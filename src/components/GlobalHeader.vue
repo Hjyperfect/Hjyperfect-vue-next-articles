@@ -2,14 +2,14 @@
 <nav class="navbar-dark bg-primary justify-content-between mb-4 px-4">
   <div class="w-75 mx-auto navbar">
     <div class="header_container">
-      <router-link class="navbar-brand" to="/">心语</router-link>
+      <router-link class="navbar-brand" to="/">毛熊码砖儿</router-link>
     </div>
     <ul v-if="!user.isLogin" class="list-inline mb-0">
       <li class="list-inline-item">
         <router-link to="/login" class="btn btn-outline-light my-2">登陆</router-link>
       </li>
       <li class="list-inline-item">
-        <router-link to="/signup" class="btn btn-outline-light my-2">加入心语</router-link>
+        <router-link to="/signup" class="btn btn-outline-light my-2">加入毛熊</router-link>
       </li>
     </ul>
     <ul v-else class="list-inline mb-0">

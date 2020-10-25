@@ -1,6 +1,6 @@
 <template>
 <div class="signup-page mx-auto p-3 w-330">
-  <h5 class="my-4 text-center">注册心语账户</h5>
+  <h5 class="my-4 text-center">注册毛熊码砖儿账户</h5>
   <validate-form @form-submit="onFormSubmit">
     <div class="mb-3">
       <label class="form-label">邮箱地址</label>
