@@ -35,3 +35,7 @@ axios.interceptors.request.use(config => {
 ```
 npm run serve
 ```
+
+```
+master分支为主分支，staging分支为开发分支
+```
