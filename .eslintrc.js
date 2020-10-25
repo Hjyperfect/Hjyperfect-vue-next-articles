@@ -20,6 +20,7 @@ module.exports = {
     '@typescript-eslint/type-annotation-spacing': 0,
     'func-call-spacing': 0,
     'space-in-parens': 0,
-    '@typescript-eslint/no-explicit-any': 0
+    '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-eslint/no-unused-vars': 0
   }
 }
