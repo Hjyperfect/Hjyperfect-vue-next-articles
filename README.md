@@ -15,6 +15,7 @@ npm install
 // 替换 baseURL
 axios.defaults.baseURL = 'http://apis.imooc.com/api/'
 // 下面的 icode 值是从慕课网获取的 token 值，可以在课程右侧的项目接口校验码找到
+// 笔者会及时更新icode: D22AA504EF11A840
 axios.interceptors.request.use(config => {
   ... 其他代码
   // get 请求，添加到 url 中
