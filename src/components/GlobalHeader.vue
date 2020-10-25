@@ -1,13 +1,15 @@
 <template>
 <nav class="navbar-dark bg-primary justify-content-between mb-4 px-4">
   <div class="w-75 mx-auto navbar">
-    <router-link class="navbar-brand" to="/">心语</router-link>
+    <div class="header_container">
+      <router-link class="navbar-brand" to="/">心语</router-link>
+    </div>
     <ul v-if="!user.isLogin" class="list-inline mb-0">
       <li class="list-inline-item">
         <router-link to="/login" class="btn btn-outline-light my-2">登陆</router-link>
       </li>
       <li class="list-inline-item">
-        <router-link to="/signup" class="btn btn-outline-light my-2">注册</router-link>
+        <router-link to="/signup" class="btn btn-outline-light my-2">加入心语</router-link>
       </li>
     </ul>
     <ul v-else class="list-inline mb-0">
@@ -71,3 +73,10 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped>
+.header_container * {
+  font-size: 25px;
+  font-weight: 700;
+}
+</style>
