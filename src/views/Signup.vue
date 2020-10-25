@@ -35,6 +35,9 @@
           :rules="repeatPasswordRules"
           v-model="formData.repeatPassword"
         />
+        <div class="form-text">
+          <router-link to="/login">已经有账户了？去登录</router-link>
+        </div>
       </div>
       <template #submit>
         <button type="submit" class="btn btn-primary btn-block btn-large">注册新用户</button>
@@ -73,10 +76,12 @@ export default defineComponent({
       { type: 'required', message: '昵称不能为空' }
     ]
     const passwordRules: RulesProp = [
-      { type: 'required', message: '密码不能为空' }
+      { type: 'required', message: '密码不能为空' },
+      { type: 'range', min: { message: '你的密码至少包括六位，不能含有空格', length: 6 } }
     ]
     const repeatPasswordRules: RulesProp = [
       { type: 'required', message: '重复密码不能为空' },
+      { type: 'range', min: { message: '你的密码至少包括六位，不能含有空格', length: 6 } },
       {
         type: 'custom',
         validator: () => {

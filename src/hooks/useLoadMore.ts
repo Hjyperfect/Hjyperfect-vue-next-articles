@@ -1,30 +1,33 @@
-import { useStore } from 'vuex'
 import { ref, computed, ComputedRef } from 'vue'
-
-interface LoadParams {
-  currentPage: number;
-  pageSize: number;
+import { useStore } from 'vuex'
+interface LoadPrams {
+  currentPage?: number;
+  pageSize?: number;
+  [key: string]: any;
 }
-const useLoadMore = (actionName: string, total: ComputedRef<number>,
-  params: LoadParams = { currentPage: 2, pageSize: 5 }) => {
+const useLoadMore = (actionName: string, total: ComputedRef<number>, params: LoadPrams = {}, pageSize = 5) => {
   const store = useStore()
-  const currentPage = ref(params.currentPage)
-  const requestParams = computed(() => ({
-    currentPage: currentPage.value,
-    pageSize: params.pageSize
-  }))
+  // current page should equals 1, start from the second page
+  const currentPage = ref((params && params.currentPage) || 1)
+  const requestParams = computed(() => {
+    return {
+      ...params,
+      currentPage: currentPage.value + 1
+    }
+  })
+  // function to trigger load more
   const loadMorePage = () => {
     store.dispatch(actionName, requestParams.value).then(() => {
       currentPage.value++
     })
   }
   const isLastPage = computed(() => {
-    return Math.ceil(total.value / params.pageSize) < currentPage.value
+    return Math.ceil((total.value || 1) / pageSize) === currentPage.value
   })
   return {
+    currentPage,
     loadMorePage,
-    isLastPage,
-    currentPage
+    isLastPage
   }
 }
 

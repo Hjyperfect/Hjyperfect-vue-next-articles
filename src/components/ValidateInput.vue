@@ -1,23 +1,23 @@
 <template>
-  <div class="validate-input-container pb-3">
+  <div class="validate-input-container pb-3 position-relative">
     <input
       v-if="tag !== 'textarea'"
       class="form-control"
       :class="{'is-invalid': inputRef.error}"
+      v-model="inputVal"
       @blur="validateInput"
-      v-model="inputRef.val"
       v-bind="$attrs"
     >
     <textarea
       v-else
       class="form-control"
       :class="{'is-invalid': inputRef.error}"
+      v-model="inputVal"
       @blur="validateInput"
-      v-model="inputRef.val"
       v-bind="$attrs"
     >
     </textarea>
-    <span v-if="inputRef.error" class="invalid-feedback">{{inputRef.message}}</span>
+    <span v-if="inputRef.error" class="invalid-feedback position-absolute mt-1">{{inputRef.message}}</span>
   </div>
 </template>
 
@@ -26,9 +26,11 @@ import { defineComponent, reactive, PropType, onMounted, computed } from 'vue'
 import { emitter } from './ValidateForm.vue'
 const emailReg = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 interface RuleProp {
-  type: 'required' | 'email' | 'custom';
-  message: string;
+  type: 'required' | 'email' | 'custom' | 'range';
+  message?: string;
   validator?: () => boolean;
+  min?: {length: number; message: string };
+  max?: {length: number; message: string };
 }
 export type RulesProp = RuleProp[]
 export type TagType = 'input' | 'textarea'
@@ -43,13 +45,13 @@ export default defineComponent({
   },
   inheritAttrs: false,
   setup(props, context) {
+    const inputVal = computed({
+      get: () => props.modelValue || '',
+      set: val => {
+        context.emit('update:modelValue', val)
+      }
+    })
     const inputRef = reactive({
-      val: computed({
-        get: () => props.modelValue || '',
-        set: val => {
-          context.emit('update:modelValue', val)
-        }
-      }),
       error: false,
       message: ''
     })
@@ -57,14 +59,27 @@ export default defineComponent({
       if (props.rules) {
         const allPassed = props.rules.every(rule => {
           let passed = true
-          inputRef.message = rule.message
+          inputRef.message = rule.message || ''
+          const { value } = inputVal
           switch (rule.type) {
             case 'required':
-              passed = (inputRef.val.trim() !== '')
+              passed = (value.trim() !== '')
               break
             case 'email':
-              passed = emailReg.test(inputRef.val)
+              passed = emailReg.test(value)
               break
+            case 'range': {
+              const { min, max } = rule
+              if (min && value.trim().length < min.length) {
+                passed = false
+                inputRef.message = min.message
+              }
+              if (max && value.trim().length > max.length) {
+                passed = false
+                inputRef.message = max.message
+              }
+              break
+            }
             case 'custom':
               passed = rule.validator ? rule.validator() : true
               break
@@ -83,8 +98,16 @@ export default defineComponent({
     })
     return {
       inputRef,
-      validateInput
+      validateInput,
+      inputVal
     }
   }
 })
 </script>
+
+<style>
+
+.validate-input-container .error-message {
+  bottom: -5px;
+}
+</style>

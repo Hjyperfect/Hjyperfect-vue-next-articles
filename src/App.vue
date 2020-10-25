@@ -1,37 +1,36 @@
 <template>
-<div class="container">
+<div class="container-fluid px-0 flex-shrink-0">
   <global-header :user="currentUser"></global-header>
   <loader v-if="isLoading"></loader>
   <router-view></router-view>
-  <footer class="text-center py-4 text-secondary bg-light mt-6">
-    <small>
-      <ul class="list-inline mb-0">
-        <li class="list-inline-item">© 2020 者也专栏</li>
-        <li class="list-inline-item">课程</li>
-        <li class="list-inline-item">文档</li>
-        <li class="list-inline-item">联系</li>
-        <li class="list-inline-item">更多</li>
-      </ul>
-    </small>
-  </footer>
 </div>
+<footer class="text-center py-4 text-secondary bg-light mt-auto">
+  <small>
+    <ul class="list-inline mb-0">
+      <li class="list-inline-item">© 慕课网（imooc.com）版权所有 | 津ICP备20000929号-1</li>
+      <li class="list-inline-item"><a href="https://coding.imooc.com/class/449.html" target="_blank">购买课程</a></li>
+      <li class="list-inline-item"><a href="http://docs.vikingship.xyz/" target="_blank">文档</a></li>
+      <li class="list-inline-item"><a href="http://api.vikingship.xyz/" target="_blank">API 在线调试</a></li>
+      <li class="list-inline-item"><a href="http://showcase.vikingship.xyz/" target="_blank">组件库演示</a></li>
+    </ul>
+  </small>
+</footer>
 </template>
 
 <script lang="ts">
 import {
   defineComponent,
   computed,
-  onMounted,
   watch
 } from 'vue'
 import {
   useStore
 } from 'vuex'
-import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import GlobalHeader from './components/GlobalHeader.vue'
 import Loader from './components/Loader.vue'
 import createMessage from './components/createMessage'
+
 import {
   GlobalDataProps
 } from './store/store'
