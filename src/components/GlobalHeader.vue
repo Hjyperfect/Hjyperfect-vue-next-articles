@@ -1,5 +1,5 @@
 <template>
-<nav class="navbar-dark bg-primary justify-content-between mb-4 px-4">
+<nav class="navbar-dark bg-primary justify-content-between mb-4 px-4 sticky-md-top">
   <div class="w-75 mx-auto navbar">
     <div class="header_container">
       <router-link class="navbar-brand" to="/">随享</router-link>
